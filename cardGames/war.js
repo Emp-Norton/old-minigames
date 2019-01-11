@@ -12,6 +12,11 @@ maybe this accepts an argument so when a player has an array of cards
 I can make it a deck object and give it the associated methods like shuffle. 
 This would allow for different rule-sets (shuffle before using "won" cards, or not /
 multi-deck games / whatever else )
+
+** Definitely need to do the above. https://www.wimpyprogrammer.com/the-statistics-of-war-the-card-game/
+    The site linked here points out that games in which the winning pile isn't shuffled tend to go 
+    much, much longer. player.deck object must be Deck type so it can use .shuffle method. when the player's
+    offensive pile is depleted.
   
 */
   this.cards = [];
