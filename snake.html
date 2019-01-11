@@ -16,6 +16,7 @@
   <script>
     const snakeGreen = '#00FF00';
     const appleRed = '#FF0000';
+    const backgroundBlack = '#000'
 
     let snakeCoordX = snakeCoordY = 10;
     let gridSize = tileCount = 20;
@@ -29,7 +30,7 @@
       for (let i = 0; i < 3; i++) {
         rgbVals.push(Math.floor(Math.random() * Math.floor(256)));
       }
-      
+      return `rgba(${rgbVals[0]},${rgbVals[1]},${rgbVals[2]})`
     }
 
     const game = () => {
@@ -40,13 +41,18 @@
       if (snakeCoordY < 0) snakeCoordY = tileCount - 1;
       if (snakeCoordY > tileCount - 1) snakeCoordY = 0;
     
-      ctx.fillStyle = '#000'; 
+      ctx.fillStyle = backgroundBlack; 
       ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle = snakeGreen; 
       
       for (let i = 0; i < trail.length; i++) {
-        ctx.fillRect(trail[i].x * gridSize, trail[i].y * gridSize, gridSize - 2, gridSize - 2)
+        
+        if (trail.length > 7) {  
+          let colorString = getColor();
+          ctx.fillStyle = colorString;
+        }
 
+        ctx.fillRect(trail[i].x * gridSize, trail[i].y * gridSize, gridSize - 2, gridSize - 2)
         if (trail[i].x == snakeCoordX && trail[i].y == snakeCoordY) {
           // need death notification or restart
           // reset to green for now
