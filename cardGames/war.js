@@ -7,6 +7,13 @@ const Player = (name) => { // function keyword or arrow funcs? this binding?
 }
 
 const Deck = function() {
+/* 
+maybe this accepts an argument so when a player has an array of cards
+I can make it a deck object and give it the associated methods like shuffle. 
+This would allow for different rule-sets (shuffle before using "won" cards, or not /
+multi-deck games / whatever else )
+  
+*/
   this.cards = [];
   const suits = ['C','D','H','S'];
   for (let cardVal = 1; cardVal <= 13; cardVal++) {
@@ -97,7 +104,5 @@ const Game = function(){
 
 const game = new Game();
 game.startGame();
-//game.startGame();
 
-const results = {'James': 0, 'Jon':0}
 
