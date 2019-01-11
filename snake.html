@@ -14,6 +14,13 @@
     </div>
   </div>
   <script>
+    $(document).ready(function() {
+      canvas = document.getElementById("field");
+      ctx = canvas.getContext("2d");
+      document.addEventListener("keydown", keyPush);
+      setInterval(game, 200);
+    });
+    
     const snakeGreen = '#00FF00';
     const appleRed = '#FF0000';
     const backgroundBlack = '#000'
@@ -97,12 +104,6 @@
           break;
       }
     }
-    $(document).ready(function() {
-      canvas = document.getElementById("field");
-      ctx = canvas.getContext("2d");
-      document.addEventListener("keydown", keyPush);
-      setInterval(game, 200);
-    });
   </script>
 </body>
 </html>
