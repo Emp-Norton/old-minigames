@@ -1,0 +1,83 @@
+<html>
+<head>
+  <title> Snake </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+  <div class="main-content">
+    <div class="row">
+      <div>
+        <canvas id='field' height='400' width='400' style="margin: 1em auto; display:block;"></canvas>
+      </div>
+    </div>
+  </div>
+  <script>
+    let snakeCoordX = snakeCoordY = 10;
+    let gridSize = tileCount = 20;
+    let appleX = appleY = 15;
+    let horizSpeed = vertSpeed = 0;
+    const trail=[];
+    let tail=5;
+    game = () => {
+      snakeCoordX += horizSpeed;
+      snakeCoordY += vertSpeed;
+      if (snakeCoordX < 0) snakeCoordX = tileCount - 1;
+      if (snakeCoordX > tileCount - 1) snakeCoordX = 0;
+      if (snakeCoordY < 0) snakeCoordY = tileCount-1;
+      if ( snakeCoordY > tileCount-1 ) snakeCoordY = 0;
+    
+      ctx.fillStyle = '#000'; 
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = 'lime'; 
+      
+      for (let i = 0; i < trail.length; i++) {
+        ctx.fillRect(trail[i].x * gridSize, trail[i].y * gridSize, gridSize - 2, gridSize - 2)
+        if (trail[i].x == snakeCoordX && trail[i].y == snakeCoordY) tail = 5;
+      }
+
+      trail.push({x: snakeCoordX, y: snakeCoordY});
+      while (trail.length > tail) {
+        trail.shift();
+      }
+
+      if (appleX == snakeCoordX && appleY == snakeCoordY) {
+        tail++;
+        appleX = Math.floor((Math.random() * tileCount));
+        appleY = Math.floor((Math.random() * tileCount));
+      }
+
+      ctx.fillStyle = '#FF0000'; 
+      ctx.fillRect(appleX * gridSize, appleY * gridSize, gridSize - 2, gridSize - 2);
+    }
+
+    keyPush = (e) => {
+      switch(e.keyCode) {
+        case 37:
+          horizSpeed = -1;
+          vertSpeed = 0;
+          break;
+        case 38:
+          horizSpeed = 0;
+          vertSpeed = -1;
+          break;
+        case 39:
+          horizSpeed = 1;
+          vertSpeed = 0;
+          break;
+        case 40:
+          horizSpeed = 0;
+          vertSpeed = 1;
+          break;
+      }
+    }
+    $(document).ready(function() {
+      canvas=document.getElementById("field");
+      ctx=canvas.getContext("2d");
+      document.addEventListener("keydown",keyPush);
+      setInterval(game,1000/5);
+    });
+  </script>
+</body>
+</html>
