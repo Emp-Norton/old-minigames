@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title> Snake </title>
+  <title> Disco Snake </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -20,7 +20,7 @@
     let horizSpeed = vertSpeed = 0;
     const trail=[];
     let tail=5;
-    game = () => {
+    const game = () => {
       snakeCoordX += horizSpeed;
       snakeCoordY += vertSpeed;
       if (snakeCoordX < 0) snakeCoordX = tileCount - 1;
@@ -52,7 +52,7 @@
       ctx.fillRect(appleX * gridSize, appleY * gridSize, gridSize - 2, gridSize - 2);
     }
 
-    keyPush = (e) => {
+    const keyPush = (e) => {
       switch(e.keyCode) {
         case 37:
           horizSpeed = -1;
@@ -73,10 +73,10 @@
       }
     }
     $(document).ready(function() {
-      canvas=document.getElementById("field");
-      ctx=canvas.getContext("2d");
-      document.addEventListener("keydown",keyPush);
-      setInterval(game,1000/5);
+      canvas = document.getElementById("field");
+      ctx = canvas.getContext("2d");
+      document.addEventListener("keydown", keyPush);
+      setInterval(game, 200);
     });
   </script>
 </body>
