@@ -84,6 +84,9 @@ const Game = function(){
       } else if (this.player2.deck.length <= 3) {
 
       } else {
+        // need to fix warstakes. If player_x doesn't have enough cards
+          // other player wins?
+          // stake as many as possible and play last remaining?
         warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
         this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
         this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
