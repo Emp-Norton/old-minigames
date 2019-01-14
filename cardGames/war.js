@@ -79,20 +79,39 @@ const Game = function(){
       let p2warCard;
       // this.player1.deck.push(this.player1.deck.shift())
       // this.player2.deck.push(this.player2.deck.shift());
-      if (this.player1.deck.length <= 3) {
-        warStakes = [...stakes, ]
-      } else if (this.player2.deck.length <= 3) {
+      switch (true) {
 
-      } else {
-        // need to fix warstakes. If player_x doesn't have enough cards
-          // other player wins?
-          // stake as many as possible and play last remaining?
-        warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
-        this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
-        this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
-        console.log(`WAR! ${warStakes} at stake. P1: ${this.player1.deck[0]} - P2: ${this.player2.deck[0]}`);
-        this.playRound(this.player1.deck[0], this.player2.deck[0], warStakes);
+        // neither have > 3
+        case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
+          // warstakes = [...stakes, this.player1.deck.slice(0, 3), this.player2.deck.slice(0, this.player2.deck.length - 1)]
+          break;
+        case this.player2.deck.length > 3 && this.player1.deck.length <= 3:         // p2 has > 3, p1 doesn't
+          break;
+        case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
+          break;
+        default:
+
       }
+      /*
+      replace the following logic block (99-114) with a switch statement. Generally avoid switches but much cleaner in this case,
+      at least for now.
+      */
+      // if (this.player1.deck.length <= 3) {
+      //   warStakes = [...stakes, this.player1.deck.slice(0, this.player1.deck.length - 1)];
+      //   p1warCard = this.player1.deck[0];
+      //   console.log(warStakes, p1warCard)
+      // } else if (this.player2.deck.length <= 3) {
+
+      // } else {
+      //   // need to fix warstakes. If player_x doesn't have enough cards
+      //     // other player wins?
+      //     // stake as many as possible and play last remaining?
+      //   warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
+      //   this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
+      //   this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
+      //   console.log(`WAR! ${warStakes} at stake. P1: ${this.player1.deck[0]} - P2: ${this.player2.deck[0]}`);
+      //   this.playRound(this.player1.deck[0], this.player2.deck[0], warStakes);
+      // }
       
     }
     return
