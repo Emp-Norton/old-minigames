@@ -3,7 +3,6 @@
   <title> Disco Snake </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 </head>
 <body>
   <div class="main-content">
@@ -14,6 +13,12 @@
     </div>
   </div>
   <script>
+    let score = 0;
+    const updateScore = () => {
+      const scoreArea = $('#score');
+      $('#score').html(`Score: ${score}`);
+    }
+
     $(document).ready(function() {
       canvas = document.getElementById("field");
       ctx = canvas.getContext("2d");
@@ -75,6 +80,8 @@
 
       if (appleX == snakeCoordX && appleY == snakeCoordY) {
         tail++;
+        score++;
+        updateScore();
         appleX = Math.floor((Math.random() * tileCount));
         appleY = Math.floor((Math.random() * tileCount));
       }
@@ -105,5 +112,9 @@
       }
     }
   </script>
+
+  <div id="display-field">
+    <h1 id="score"> Score: </h1>
+  </div>
 </body>
 </html>
