@@ -69,7 +69,7 @@ const Game = function(){
       this.player2.deck.push(...stakes); 
       console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
-    if (c1v === c2v) {
+    if (c1v === c2v) { // this case is still broken. cards are falling into the void because I'm not moving them properly
       console.log('war', c1, c2)
       let warStakes = [];
       let p1warCard;
@@ -89,14 +89,14 @@ const Game = function(){
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
           break;
         default:
-          warStakes = [...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
+          warStakes = [c1, c2, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
           this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
           this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
           p1warCard = this.player1.deck.shift();
           p2warCard = this.player2.deck.shift();
           console.log(warStakes, p1warCard, p2warCard);
 
-          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]);
+          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]); // recursion not working, need to rethink this
           break;
       }
       /*
