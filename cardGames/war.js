@@ -63,17 +63,14 @@ const Game = function(){
     let [c1v, c2v] = [parseInt(c1), parseInt(c2)];
     if (c1v > c2v) {
       this.player1.deck.push(...stakes)
-      this.player2.deck.shift();
-      this.player1.deck.shift();
-      console.log(`Player 1 wins with ${c1} against ${c2} : ${this.player1.deck.length} - ${this.player2.deck.length}`);
+      console.log(`Player 1 wins with ${c1} against ${c2} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
     if (c1v < c2v) {
-      this.player2.deck.push(...stakes);
-      this.player2.deck.shift();
-      this.player1.deck.shift();  
-      console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player2.deck.length} - ${this.player1.deck.length}`);
+      this.player2.deck.push(...stakes); 
+      console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
     if (c1v === c2v) {
+      console.log('war', c1, c2)
       let warStakes = [];
       let p1warCard;
       let p2warCard;
@@ -83,14 +80,24 @@ const Game = function(){
 
         // neither have > 3
         case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
-          // warstakes = [...stakes, this.player1.deck.slice(0, 3), this.player2.deck.slice(0, this.player2.deck.length - 1)]
+          p2warCard = this.player2.deck.pop();
+          p1warCard = this.player2.deck.shift
+           warstakes = [...stakes, this.player1.deck.slice(0, 3), ...this.player2.deck]
           break;
         case this.player2.deck.length > 3 && this.player1.deck.length <= 3:         // p2 has > 3, p1 doesn't
           break;
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
           break;
         default:
+          warStakes = [...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
+          this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
+          this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
+          p1warCard = this.player1.deck.shift();
+          p2warCard = this.player2.deck.shift();
+          console.log(warStakes, p1warCard, p2warCard);
 
+          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]);
+          break;
       }
       /*
       replace the following logic block (99-114) with a switch statement. Generally avoid switches but much cleaner in this case,
@@ -122,7 +129,10 @@ const Game = function(){
     deck.deal(this.player1, this.player2);
     while (this.player1.deck.length > 0) {
       if (this.player1.deck.length >= 52) return this.player1.name
-      this.playRound(this.player1.deck[0], this.player2.deck[0]);
+      if (this.player2.deck.length >= 52) return this.player2.name 
+      let p1card = this.player1.deck.shift();
+      let p2card = this.player2.deck.shift();
+      this.playRound(p1card, p2card);
     }
     return this.player2.name
   }
