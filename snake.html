@@ -87,6 +87,17 @@
     let bestScore = 0;
     const canvas = document.getElementById("field");
     const ctx = canvas.getContext("2d");
+    const snakeGreen = '#00FF00';
+    const appleRed = '#FF0000';
+    const poisonYellow = '#FFFF33'; // #FFFF00
+    const backgroundBlack = '#000'
+    let snakeCoordX = snakeCoordY = 10;
+    let gridSize = tileCount = 20;
+    let appleX = appleY = 15;
+    let poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y;
+    let horizSpeed = vertSpeed = 0;
+    const trail = [];
+    let tail = 5;
     
     $(document).ready(function() {
       document.addEventListener("keydown", keyPush);
@@ -96,20 +107,6 @@
       }
     });
     
-    const snakeGreen = '#00FF00';
-    const appleRed = '#FF0000';
-    const poisonYellow = '#FFFF33'; // #FFFF00
-    const backgroundBlack = '#000'
-
-    let snakeCoordX = snakeCoordY = 10;
-    let gridSize = tileCount = 20;
-    let appleX = appleY = 15;
-    let poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y;
-    let horizSpeed = vertSpeed = 0;
-    const trail = [];
-    let tail = 5;
-
-
     const game = () => {
       snakeCoordX += horizSpeed;
       snakeCoordY += vertSpeed;
@@ -141,8 +138,6 @@
       while (trail.length > tail) {
         trail.shift();
       }
-
-
 
       if (appleX == snakeCoordX && appleY == snakeCoordY) {
         tail++;
