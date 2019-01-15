@@ -52,6 +52,20 @@
       }
     }
 
+    const checkPoison = () => {
+      let isPoisonApple = false;
+      if ([poison1X, poison2X, poison3X].includes(snakeCoordX) && [poison1Y, poison2Y, poison3Y].includes(snakeCoordY)) { // this isn't right. fix in morning
+        poisonSnake();
+      }
+      return isPoisonApple
+    }
+
+    const poisonSnake = () => {
+      score = 0;
+      tail = 5;
+
+    }
+
     let score = 0; // persist high score in local memory?
     let bestScore = 0;
     const canvas = document.getElementById("field");
@@ -100,10 +114,6 @@
 
         ctx.fillRect(trail[i].x * gridSize, trail[i].y * gridSize, gridSize - 2, gridSize - 2)
         if (trail[i].x == snakeCoordX && trail[i].y == snakeCoordY) {
-          // need death notification or restart
-          // reset to green for now
-          ctx.fillStyle = snakeGreen;
-          // check against highscore in memory
           score = 0;
           updateScore(score);
           tail = 5;
@@ -114,6 +124,8 @@
       while (trail.length > tail) {
         trail.shift();
       }
+
+
 
       if (appleX == snakeCoordX && appleY == snakeCoordY) {
         tail++;
@@ -131,6 +143,8 @@
         poison1Y = Math.floor((Math.random() * tileCount));
         poison2Y = Math.floor((Math.random() * tileCount));
         poison3Y = Math.floor((Math.random() * tileCount));
+      } else {
+        checkPoison();
       }
 
       ctx.fillStyle = appleRed; 
