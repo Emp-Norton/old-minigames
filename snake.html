@@ -54,7 +54,13 @@
 
     const checkPoison = () => {
       let isPoisonApple = false;
-      if ([poison1X, poison2X, poison3X].includes(snakeCoordX) && [poison1Y, poison2Y, poison3Y].includes(snakeCoordY)) { // this isn't right. fix in morning
+      if (snakeCoordX == poison1X && snakeCoordY == poison1Y) {
+        poisonSnake();
+      }
+      if (snakeCoordX == poison2X && snakeCoordY == poison2Y) {
+        poisonSnake();
+      }
+      if (snakeCoordX == poison3X && snakeCoordY == poison3Y) {
         poisonSnake();
       }
       return isPoisonApple
@@ -63,7 +69,17 @@
     const poisonSnake = () => {
       score = 0;
       tail = 5;
+      updateScore(score);
+    }
 
+    const placePoison = (p1, p2, p3) => {
+      const [poison1X, poison1Y] = p1;
+      const [poison2X, poison2Y] = p2;
+      const [poison3X, poison3Y] = p3;
+      ctx.fillStyle = poisonYellow;  
+      ctx.fillRect(poison1X * gridSize, poison1Y * gridSize, gridSize - 2, gridSize - 2);
+      ctx.fillRect(poison2X * gridSize, poison2Y * gridSize, gridSize - 2, gridSize - 2);
+      ctx.fillRect(poison3X * gridSize, poison3Y * gridSize, gridSize - 2, gridSize - 2);
     }
 
     let score = 0; // persist high score in local memory?
@@ -149,11 +165,8 @@
 
       ctx.fillStyle = appleRed; 
       ctx.fillRect(appleX * gridSize, appleY * gridSize, gridSize - 2, gridSize - 2);
-
-      ctx.fillStyle = poisonYellow;  
-      ctx.fillRect(poison1X * gridSize, poison1Y * gridSize, gridSize - 2, gridSize - 2);
-      ctx.fillRect(poison2X * gridSize, poison2Y * gridSize, gridSize - 2, gridSize - 2);
-      ctx.fillRect(poison3X * gridSize, poison3Y * gridSize, gridSize - 2, gridSize - 2);
+      placePoison([poison1X, poison1Y], [poison2X, poison2Y], [poison3X, poison3Y]);
+      
 
     }
 
