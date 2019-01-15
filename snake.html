@@ -36,9 +36,9 @@
     <div class="container">
       <canvas id='field' height='400' width='400' style="margin: 1em auto; display:block;"></canvas>
       <div class="controls">
-        <button class="difficulty" data-difficulty="1">Easy</button>
+        <button class="difficulty" data-difficulty="4">Easy</button>
         <button class="difficulty" data-difficulty="2">Medium</button>
-        <button class="difficulty" data-difficulty="3">Hard</button>
+        <button class="difficulty" data-difficulty="1">Hard</button>
       </div>
     </div>
   </div>
@@ -113,6 +113,12 @@
       ctx.fillRect(appleX * gridSize, appleY * gridSize, gridSize - 2, gridSize - 2);
     }
 
+    const changeDifficulty = (level) => {
+      console.log('changing to ' + level);
+      clearInterval(gameTimer);
+      gameTimer = setInterval(game, level * 100);
+    }
+    let gameTimer;
     let score = 0; // persist high score in local memory?
     let bestScore = 0;
     const canvas = document.getElementById("field");
@@ -136,10 +142,10 @@
       for (let i = 0; i < document.getElementsByClassName('difficulty').length; i++){
         console.log(difficultyControls[i])
         difficultyControls[i].onclick = function() {
-          console.log(difficultyControls[i].dataset.difficulty);
+          changeDifficulty(difficultyControls[i].dataset.difficulty);
         }
       }
-      setInterval(game, 200);
+      gameTimer = setInterval(game, 200);
       if (!!localStorage.getItem('highscore')) {
         bestScore = localStorage.getItem('highscore');
       }
