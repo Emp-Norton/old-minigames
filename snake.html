@@ -54,13 +54,9 @@
 
     const checkPoison = () => {
       let isPoisonApple = false;
-      if (snakeCoordX == poison1X && snakeCoordY == poison1Y) {
-        poisonSnake();
-      }
-      if (snakeCoordX == poison2X && snakeCoordY == poison2Y) {
-        poisonSnake();
-      }
-      if (snakeCoordX == poison3X && snakeCoordY == poison3Y) {
+      if (snakeCoordX == poison1X && snakeCoordY == poison1Y ||
+          snakeCoordX == poison2X && snakeCoordY == poison2Y ||
+          snakeCoordX == poison3X && snakeCoordY == poison3Y) {
         poisonSnake();
       }
       return isPoisonApple
@@ -80,6 +76,11 @@
       ctx.fillRect(poison1X * gridSize, poison1Y * gridSize, gridSize - 2, gridSize - 2);
       ctx.fillRect(poison2X * gridSize, poison2Y * gridSize, gridSize - 2, gridSize - 2);
       ctx.fillRect(poison3X * gridSize, poison3Y * gridSize, gridSize - 2, gridSize - 2);
+    }
+
+    const placeApple = (appleX, appleY) => {
+      ctx.fillStyle = appleRed; 
+      ctx.fillRect(appleX * gridSize, appleY * gridSize, gridSize - 2, gridSize - 2);
     }
 
     let score = 0; // persist high score in local memory?
@@ -153,7 +154,7 @@
         updateScore(score);
         appleX = Math.floor((Math.random() * tileCount));
         appleY = Math.floor((Math.random() * tileCount));
-        poison1X = Math.floor((Math.random() * tileCount));
+        poison1X = Math.floor((Math.random() * tileCount)); // this is messy
         poison2X = Math.floor((Math.random() * tileCount));
         poison3X = Math.floor((Math.random() * tileCount));
         poison1Y = Math.floor((Math.random() * tileCount));
@@ -163,11 +164,8 @@
         checkPoison();
       }
 
-      ctx.fillStyle = appleRed; 
-      ctx.fillRect(appleX * gridSize, appleY * gridSize, gridSize - 2, gridSize - 2);
+      placeApple(appleX, appleY);
       placePoison([poison1X, poison1Y], [poison2X, poison2Y], [poison3X, poison3Y]);
-      
-
     }
 
   </script>
