@@ -49,10 +49,10 @@
     }
 
     let score = 0; // persist high score in local memory?
+    const canvas = document.getElementById("field");
+    const ctx = canvas.getContext("2d");
     
     $(document).ready(function() {
-      canvas = document.getElementById("field");
-      ctx = canvas.getContext("2d");
       document.addEventListener("keydown", keyPush);
       setInterval(game, 200);
     });
@@ -93,6 +93,8 @@
           // need death notification or restart
           // reset to green for now
           ctx.fillStyle = snakeGreen;
+          // check against highscore in memory
+          score = 0;
           tail = 5;
         }
       }
