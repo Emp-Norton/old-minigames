@@ -13,9 +13,13 @@
     </div>
   </div>
   <script>
-    const updateScore = () => {
+    const updateScore = (newScore) => {
       const scoreArea = $('#score');
-      $('#score').html(`Score: ${score}`);
+      const highscoreArea = $('#highscore');
+      scoreArea.html(`Score: ${newScore}`);
+      bestScore > highscore
+        ? highscoreArea.html(`Highest Score is now: ${bestScore}!`)
+        : highscoreArea.html(`Highest Score: ${bestScore}.`)
     };
 
     const getColor = () => {
@@ -49,12 +53,16 @@
     }
 
     let score = 0; // persist high score in local memory?
+    let bestScore = 0;
     const canvas = document.getElementById("field");
     const ctx = canvas.getContext("2d");
     
     $(document).ready(function() {
       document.addEventListener("keydown", keyPush);
       setInterval(game, 200);
+      if (!!localStorage.getItem('highscore')) {
+        bestScore = localStorage.getItem('highscore');
+      }
     });
     
     const snakeGreen = '#00FF00';
@@ -95,6 +103,7 @@
           ctx.fillStyle = snakeGreen;
           // check against highscore in memory
           score = 0;
+          updateScore(score);
           tail = 5;
         }
       }
@@ -107,7 +116,11 @@
       if (appleX == snakeCoordX && appleY == snakeCoordY) {
         tail++;
         score++;
-        updateScore();
+        if (score > bestScore){
+          bestScore = score;
+          localStorage.setItem('highscore', bestScore);
+        }
+        updateScore(score);
         appleX = Math.floor((Math.random() * tileCount));
         appleY = Math.floor((Math.random() * tileCount));
       }
@@ -120,6 +133,7 @@
 
   <div id="display-field">
     <h1 id="score"> Score: </h1>
+    <h2 id="highscore"> Highest Score: </h2>
   </div>
 </body>
 </html>
