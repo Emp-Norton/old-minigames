@@ -127,14 +127,14 @@
       gameTimer = setInterval(game, level * 100);
     }
     let gameTimer;
-    let score = 0; // persist high score in local memory?
+    let score = 0;
     let bestScore = 0;
     const canvas = document.getElementById("field");
     const difficultyControls = document.getElementsByClassName('difficulty');
     const ctx = canvas.getContext("2d");
     const snakeGreen = '#00FF00';
     const appleRed = '#FF0000';
-    const poisonYellow = '#FFFF33'; // #FFFF00
+    const poisonYellow = '#FFFF33';
     const backgroundBlack = '#000'
     let snakeCoordX = snakeCoordY = 10;
     let gridSize = tileCount = 20;
@@ -218,7 +218,6 @@
   </script>
 
   <div id="display-field">
-    <!-- need some styles here -->
     <h3 id="score"> Score: </h1>
     <h4 id="highscore"> Highest Score: </h2>
   </div>
