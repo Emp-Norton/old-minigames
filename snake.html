@@ -52,6 +52,8 @@
   </div>
   <script>
     const updateScore = (newScore) => {
+      newScore += score;
+      console.log(`DifMod ${difficultyModifier}, total: ${newScore}`)
       const scoreArea = $('#score');
       const highscoreArea = $('#highscore');
       scoreArea.html(`Score: ${newScore}`);
@@ -123,10 +125,12 @@
 
     const changeDifficulty = (level) => {
       console.log('changing to ' + level);
+      difficultyModifier = level % 3;
       clearInterval(gameTimer);
       gameTimer = setInterval(game, level * 100);
     }
     let gameTimer;
+    let difficultyModifier = 1;
     let score = 0;
     let bestScore = 0;
     const canvas = document.getElementById("field");
@@ -198,7 +202,7 @@
           bestScore = score;
           localStorage.setItem('highscore', bestScore);
         }
-        updateScore(score);
+        updateScore(1 * difficultyModifier);
         appleX = Math.floor((Math.random() * tileCount));
         appleY = Math.floor((Math.random() * tileCount));
         poison1X = Math.floor((Math.random() * tileCount)); // this is messy
