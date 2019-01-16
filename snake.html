@@ -12,11 +12,11 @@
     .container {
       border: solid 2px blue;
       border-radius: 15px;
-      width: 100%;
+      width: 700px;
       height: 430px;
       display: flex;
       flex-direction: row;
-      justify-content: space;
+      justify-content: space-between;
     }
     .controls {
       border: solid 2px red;
@@ -24,7 +24,14 @@
       width: 110px;
       height: 110px;
       margin: 50px;
-    }
+      display: flex;
+      flex-direction: column;
+     }
+     .controlButton {
+      height: 20px;
+      border-radius: 5px;
+      margin: 2px;
+     }
     .row {
     }
   </style>
@@ -37,9 +44,9 @@
     <div class="container">
       <canvas id='field' height='400' width='400' style="margin: 1em auto; display:block;"></canvas>
       <div class="controls">
-        <button class="difficulty" data-difficulty="4">Easy</button>
-        <button class="difficulty" data-difficulty="2">Medium</button>
-        <button class="difficulty" data-difficulty="1">Hard</button>
+        <button class="difficulty controlButton" data-difficulty="4">Easy</button>
+        <button class="difficulty controlButton" data-difficulty="2">Medium</button>
+        <button class="difficulty controlButton" data-difficulty="1">Hard</button>
       </div>
     </div>
   </div>
