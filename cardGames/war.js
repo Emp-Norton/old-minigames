@@ -70,7 +70,7 @@ const Game = function(){
       console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
     if (c1v === c2v) { // this case is still broken. cards are falling into the void because I'm not moving them properly
-      // console.log('war', c1, c2)
+      console.log('war', c1, c2)
       let warStakes = [];
       let p1warCard;
       let p2warCard;
@@ -79,12 +79,24 @@ const Game = function(){
       switch (true) {
         case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
           p2warCard = this.player2.deck.pop();
-          p1warCard = this.player2.deck.shift
-           warstakes = [...stakes, this.player1.deck.slice(0, 3), ...this.player2.deck]
+          p1warCard = this.player1.deck.shift();
+          warStakes = [...stakes, this.player1.deck.slice(0, 3), ...this.player2.deck];
+          console.log(warStakes, p1warCard, p2warCard);
+          this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player2.deck.length > 3 && this.player1.deck.length <= 3:         // p2 has > 3, p1 doesn't
+          p1warCard = this.player1.deck.pop();
+          p2warCard = this.player2.deck.shift();
+          warStakes = [...stakes, this.player2.deck.slice(0, 3), ...this.player1.deck];
+          console.log(warStakes, p1warCard, p2warCard);
+          this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
+          p1warCard = this.player1.deck.pop();
+          p2warCard = this.player2.deck.pop();
+          warStakes = [...stakes, ...this.player1.deck, ...this.player2.deck];
+          console.log(warStakes, p1warCard, p2warCard);
+          this.playRound(p1warCard, p2warCard, warStakes);
           break;
         default:
           warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
@@ -92,32 +104,10 @@ const Game = function(){
           this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
           p1warCard = this.player1.deck.shift();
           p2warCard = this.player2.deck.shift();
-          console.log('WAR: ' + warStakes, p1warCard, p2warCard);
-
-          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]); // single war working, war-in-war cards fall into void. 
+          console.log(warStakes, p1warCard, p2warCard);
+          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]);
           break;
       }
-      /*
-      replace the following logic block (99-114) with a switch statement. Generally avoid switches but much cleaner in this case,
-      at least for now.
-      */
-      // if (this.player1.deck.length <= 3) {
-      //   warStakes = [...stakes, this.player1.deck.slice(0, this.player1.deck.length - 1)];
-      //   p1warCard = this.player1.deck[0];
-      //   console.log(warStakes, p1warCard)
-      // } else if (this.player2.deck.length <= 3) {
-
-      // } else {
-      //   // need to fix warstakes. If player_x doesn't have enough cards
-      //     // other player wins?
-      //     // stake as many as possible and play last remaining?
-      //   warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
-      //   this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
-      //   this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
-      //   console.log(`WAR! ${warStakes} at stake. P1: ${this.player1.deck[0]} - P2: ${this.player2.deck[0]}`);
-      //   this.playRound(this.player1.deck[0], this.player2.deck[0], warStakes);
-      // }
-      
     }
     return
   }
