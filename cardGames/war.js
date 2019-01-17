@@ -96,7 +96,7 @@ const Game = function(){
           p2warCard = this.player2.deck.shift();
           console.log(warStakes, p1warCard, p2warCard);
 
-          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]); // recursion not working, need to rethink this
+          this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]); // single war working, war-in-war cards fall into void. 
           break;
       }
       /*
