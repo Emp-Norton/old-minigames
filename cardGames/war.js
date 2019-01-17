@@ -70,15 +70,13 @@ const Game = function(){
       console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
     if (c1v === c2v) { // this case is still broken. cards are falling into the void because I'm not moving them properly
-      console.log('war', c1, c2)
+      // console.log('war', c1, c2)
       let warStakes = [];
       let p1warCard;
       let p2warCard;
       // this.player1.deck.push(this.player1.deck.shift())
       // this.player2.deck.push(this.player2.deck.shift());
       switch (true) {
-
-        // neither have > 3
         case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
           p2warCard = this.player2.deck.pop();
           p1warCard = this.player2.deck.shift
@@ -89,12 +87,12 @@ const Game = function(){
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
           break;
         default:
-          warStakes = [c1, c2, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
+          warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
           this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
           this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
           p1warCard = this.player1.deck.shift();
           p2warCard = this.player2.deck.shift();
-          console.log(warStakes, p1warCard, p2warCard);
+          console.log('WAR: ' + warStakes, p1warCard, p2warCard);
 
           this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]); // single war working, war-in-war cards fall into void. 
           break;
