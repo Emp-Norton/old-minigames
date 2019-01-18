@@ -70,7 +70,7 @@ const Game = function(){
       console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
     if (c1v === c2v) { // this case is still broken. cards are falling into the void because I'm not moving them properly
-      console.log('war', c1, c2)
+      console.log('WAR', c1, c2)
       let warStakes = [];
       let p1warCard;
       let p2warCard;
@@ -84,7 +84,7 @@ const Game = function(){
           p1stakes = this.player1.deck.slice(0, 3);
           p2stakes = this.player2.deck.slice();
           warStakes = [...stakes, ...p1stakes, ...p2stakes];
-          console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
+          console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player2.deck.length > 3 && this.player1.deck.length <= 3:         // p2 has > 3, p1 doesn't
@@ -93,7 +93,7 @@ const Game = function(){
           p1stakes = this.player1.deck.slice();
           p2stakes = this.player2.deck.slice(0, 3);
           warStakes = [...stakes, ...p1stakes, ...p2stakes];
-          console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
+          console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
@@ -102,16 +102,18 @@ const Game = function(){
           p1stakes = this.player1.deck.slice();
           p2stakes = this.player2.deck.slice();
           warStakes = [...stakes, ...p1stakes, ...p2stakes];
-          console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
+          console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         default:
-          warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice(0, 3)];
+          p1stakes = this.player1.deck.slice(0, 3);
+          p2stakes = this.player2.deck.slice(0, 3);
+          warStakes = [...stakes, ...p1stakes, ...p2stakes];
           this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
           this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
           p1warCard = this.player1.deck.shift();
           p2warCard = this.player2.deck.shift();
-          console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
+          console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]);
           break;
       }
