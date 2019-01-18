@@ -74,33 +74,34 @@ const Game = function(){
       let warStakes = [];
       let p1warCard;
       let p2warCard;
+      let p1stakes, p2stakes;
       // this.player1.deck.push(this.player1.deck.shift())
       // this.player2.deck.push(this.player2.deck.shift());
       switch (true) {
         case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
           p2warCard = this.player2.deck.pop();
           p1warCard = this.player1.deck.shift();
-          const p1stakes = ...this.player1.deck.slice(0, 3);
-          const p2stakes = ...this.player2.deck.slice();
-          warStakes = [...stakes, p1stakes, p2stakes];
+          p1stakes = this.player1.deck.slice(0, 3);
+          p2stakes = this.player2.deck.slice();
+          warStakes = [...stakes, ...p1stakes, ...p2stakes];
           console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player2.deck.length > 3 && this.player1.deck.length <= 3:         // p2 has > 3, p1 doesn't
           p1warCard = this.player1.deck.pop();
           p2warCard = this.player2.deck.shift();
-          const p1stakes = ...this.player1.deck.slice();
-          const p2stakes = ...this.player2.deck.slice(0, 3);
-          warStakes = [...stakes, p2stakes, p1stakes];
+          p1stakes = this.player1.deck.slice();
+          p2stakes = this.player2.deck.slice(0, 3);
+          warStakes = [...stakes, ...p1stakes, ...p2stakes];
           console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
           p1warCard = this.player1.deck.pop();
           p2warCard = this.player2.deck.pop();
-          const p1stakes = ...this.player1.deck.slice();
-          const p2stakes = ...this.player2.deck.slice();
-          warStakes = [...stakes, p1stakes, p2stakes];
+          p1stakes = this.player1.deck.slice();
+          p2stakes = this.player2.deck.slice();
+          warStakes = [...stakes, ...p1stakes, ...p2stakes];
           console.log(`P1 ${p1stakes} : ${p1warCard} \n P2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
