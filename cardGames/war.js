@@ -80,22 +80,28 @@ const Game = function(){
         case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
           p2warCard = this.player2.deck.pop();
           p1warCard = this.player1.deck.shift();
-          warStakes = [...stakes, ...this.player1.deck.slice(0, 3), ...this.player2.deck.slice()];
-          console.log(warStakes, p1warCard, p2warCard);
+          const p1stakes = ...this.player1.deck.slice(0, 3);
+          const p2stakes = ...this.player2.deck.slice();
+          warStakes = [...stakes, p1stakes, p2stakes];
+          console.log('1', warStakes, p1warCard, p2warCard);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player2.deck.length > 3 && this.player1.deck.length <= 3:         // p2 has > 3, p1 doesn't
           p1warCard = this.player1.deck.pop();
           p2warCard = this.player2.deck.shift();
-          warStakes = [...stakes, ...this.player2.deck.slice(0, 3), ...this.player1.deck.slice()];
-          console.log(warStakes, p1warCard, p2warCard);
+          const p1stakes = ...this.player1.deck.slice();
+          const p2stakes = ...this.player2.deck.slice(0, 3);
+          warStakes = [...stakes, p2stakes, p1stakes];
+          console.log('2', warStakes, p1warCard, p2warCard);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         case this.player1.deck.length <= 3 && this.player2.deck.length <= 3: // both <= 3
           p1warCard = this.player1.deck.pop();
           p2warCard = this.player2.deck.pop();
-          warStakes = [...stakes, ...this.player1.deck.slice(), ...this.player2.deck.slice()];
-          console.log(warStakes, p1warCard, p2warCard);
+          const p1stakes = ...this.player1.deck.slice();
+          const p2stakes = ...this.player2.deck.slice();
+          warStakes = [...stakes, p1stakes, p2stakes];
+          console.log('b',warStakes, p1warCard, p2warCard);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
         default:
@@ -104,7 +110,7 @@ const Game = function(){
           this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
           p1warCard = this.player1.deck.shift();
           p2warCard = this.player2.deck.shift();
-          console.log(warStakes, p1warCard, p2warCard);
+          console.log('d', warStakes, p1warCard, p2warCard);
           this.playRound(p1warCard, p2warCard, [p1warCard, p2warCard, ...warStakes]);
           break;
       }
