@@ -82,6 +82,8 @@ const Game = function(){
           p1warCard = this.player1.deck.shift();
           p1stakes = this.player1.deck.slice(0, 3);
           p2stakes = this.player2.deck.slice();
+          this.player1.deck = this.player1.deck.slice(3, this.player1.deck.length);
+          this.player2.deck = [];
           warStakes = [...stakes, ...p1stakes, ...p2stakes]; // should p1 stake 3 cards when p2 cant? maybe only stake what the opposing player has?
           console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
@@ -91,6 +93,8 @@ const Game = function(){
           p2warCard = this.player2.deck.shift();
           p1stakes = this.player1.deck.slice();
           p2stakes = this.player2.deck.slice(0, 3);
+          this.player2.deck = this.player2.deck.slice(3, this.player2.deck.length);
+          this.player1.deck = [];
           warStakes = [...stakes, ...p1stakes, ...p2stakes];
           console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
