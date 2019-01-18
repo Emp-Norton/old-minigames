@@ -69,21 +69,20 @@ const Game = function(){
       this.player2.deck.push(...stakes); 
       console.log(`Player 2 wins with ${c2} against ${c1} : ${this.player1.deck.length} -- ${this.player2.deck.length}. Wins ${stakes}`);
     }
-    if (c1v === c2v) { // this case is still broken. cards are falling into the void because I'm not moving them properly
+    if (c1v === c2v) { 
       console.log('WAR', c1, c2)
       let warStakes = [];
       let p1warCard;
       let p2warCard;
       let p1stakes, p2stakes;
-      // this.player1.deck.push(this.player1.deck.shift())
-      // this.player2.deck.push(this.player2.deck.shift());
+    
       switch (true) {
         case this.player1.deck.length > 3 && this.player2.deck.length <= 3:         // p1 has > 3, p2 doesn't
           p2warCard = this.player2.deck.pop();
           p1warCard = this.player1.deck.shift();
           p1stakes = this.player1.deck.slice(0, 3);
           p2stakes = this.player2.deck.slice();
-          warStakes = [...stakes, ...p1stakes, ...p2stakes];
+          warStakes = [...stakes, ...p1stakes, ...p2stakes]; // should p1 stake 3 cards when p2 cant? maybe only stake what the opposing player has?
           console.log(`P1 ${p1stakes} : ${p1warCard} \nP2 ${p2stakes} : ${p2warCard}`);
           this.playRound(p1warCard, p2warCard, warStakes);
           break;
