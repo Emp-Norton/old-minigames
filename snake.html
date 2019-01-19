@@ -44,7 +44,7 @@
     <div class="container">
       <canvas id='field' height='400' width='400' style="margin: 1em auto; display:block;"></canvas>
       <div class="controls">
-        <button class="difficulty controlButton" data-difficulty="4">Easy</button>
+        <button class="difficulty controlButton" data-difficulty="3">Easy</button>
         <button class="difficulty controlButton" data-difficulty="2">Medium</button>
         <button class="difficulty controlButton" data-difficulty="1">Hard</button>
       </div>
@@ -52,11 +52,23 @@
   </div>
   <script>
     const updateScore = (newScore) => {
-      newScore += score; // this isn't working, fix when get home
-      console.log(`DifMod ${difficultyModifier}, total: ${newScore}`)
+      switch (difficultyModifier) {
+        case "1": // hard
+          console.log('hard')        
+          score += 3;
+          break;
+        case "3": // easy
+          console.log('ez')
+          score += 1;
+          break;
+        default: // medium
+          console.log('medium')
+          score += 2;
+          break;
+      }
       const scoreArea = $('#score');
       const highscoreArea = $('#highscore');
-      scoreArea.html(`Score: ${newScore}`);
+      scoreArea.html(`Score: ${score}`);
       bestScore > highscore
         ? highscoreArea.html(`Highest Score is now: ${bestScore}!`)
         : highscoreArea.html(`Highest Score: ${bestScore}.`)
@@ -124,8 +136,8 @@
     }
 
     const changeDifficulty = (level) => {
-      console.log('changing to ' + level);
-      difficultyModifier = level % 3;
+      difficultyModifier = level;
+      console.log(difficultyModifier)
       clearInterval(gameTimer);
       gameTimer = setInterval(game, level * 100);
     }
@@ -140,7 +152,7 @@
     }
 
     let gameTimer;
-    let difficultyModifier = 1;
+    let difficultyModifier = 2;
     let score = 0;
     let bestScore = 0;
     const canvas = document.getElementById("field");
@@ -207,12 +219,11 @@
 
       if (appleX == snakeCoordX && appleY == snakeCoordY) {
         tail++;
-        score++;
         if (score > bestScore){
           bestScore = score;
           localStorage.setItem('highscore', bestScore);
         }
-        updateScore(1 * difficultyModifier);
+        updateScore(10 * (1 / difficultyModifier));
         [appleX, appleY] = generateCoordinates(2);
         [poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y] = generateCoordinates(6);
       } else {
