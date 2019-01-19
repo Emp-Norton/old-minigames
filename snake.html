@@ -129,6 +129,18 @@
       clearInterval(gameTimer);
       gameTimer = setInterval(game, level * 100);
     }
+
+    const generateCoordinates = (n) => {
+      const coords = [];
+      for (let i = 0; i < n; i++) {
+        let c = Math.floor((Math.random() * tileCount));
+        console.log(c)
+        coords.push(c);
+      }
+      console.log('coords ' + coords);
+      return coords
+    }
+
     let gameTimer;
     let difficultyModifier = 1;
     let score = 0;
@@ -203,14 +215,8 @@
           localStorage.setItem('highscore', bestScore);
         }
         updateScore(1 * difficultyModifier);
-        appleX = Math.floor((Math.random() * tileCount));
-        appleY = Math.floor((Math.random() * tileCount));
-        poison1X = Math.floor((Math.random() * tileCount)); // this is messy
-        poison2X = Math.floor((Math.random() * tileCount));
-        poison3X = Math.floor((Math.random() * tileCount));
-        poison1Y = Math.floor((Math.random() * tileCount));
-        poison2Y = Math.floor((Math.random() * tileCount));
-        poison3Y = Math.floor((Math.random() * tileCount));
+        [appleX, appleY] = generateCoordinates(2);
+        [poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y] = generateCoordinates(6);
       } else {
         checkPoison();
       }
