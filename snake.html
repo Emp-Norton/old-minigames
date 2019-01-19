@@ -53,16 +53,13 @@
   <script>
     const updateScore = (newScore) => {
       switch (difficultyModifier) {
-        case "1": // hard
-          console.log('hard')        
+        case "1":
           score += 3;
           break;
-        case "3": // easy
-          console.log('ez')
+        case "3":
           score += 1;
           break;
-        default: // medium
-          console.log('medium')
+        default: 
           score += 2;
           break;
       }
