@@ -1,0 +1,15 @@
+{
+  "name": "Ye Olde Minae Gaemes",
+  "version": "0.0.0",
+  "description": "Old Mini Games Host App",
+  "main": "server.js",
+  "author": "James",
+  "scripts": {
+    "start": "webpack && node server.js",
+    "test": "mocha 'test/**/test-*.js'" // implement testing later
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
