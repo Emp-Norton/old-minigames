@@ -9,6 +9,7 @@
     "test": "mocha 'test/**/test-*.js'"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
