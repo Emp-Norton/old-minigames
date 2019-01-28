@@ -6,10 +6,11 @@
   "author": "James",
   "scripts": {
     "start": "webpack && node server.js",
-    "test": "mocha 'test/**/test-*.js'" // implement testing later
+    "test": "mocha 'test/**/test-*.js'"
   },
   "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
