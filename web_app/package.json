@@ -1,5 +1,5 @@
 {
-  "name": "Ye Olde Minae Gaemes",
+  "name": "yomg",
   "version": "0.0.0",
   "description": "Old Mini Games Host App",
   "main": "server.js",
@@ -13,5 +13,10 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5"
+  }
 }
