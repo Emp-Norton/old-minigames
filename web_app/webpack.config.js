@@ -13,16 +13,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
-        include: SRC_DIR,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015']
-        },
-      },
-     {
-        test:/\.css$/,
-        loader:['style-loader','css-loader']
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
       }
     ]
   }
