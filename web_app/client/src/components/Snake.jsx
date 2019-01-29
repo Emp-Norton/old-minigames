@@ -128,22 +128,17 @@ export default class Snake extends React.Component {
       return coords
     }
 
-    
-    
-    //$(document).ready(function() {
-      console.log(difficultyControls);
-      document.addEventListener("keydown", keyPush);
-      for (let i = 0; i < document.getElementsByClassName('difficulty').length; i++){
-        console.log(difficultyControls[i])
-        difficultyControls[i].onclick = function() {
-          changeDifficulty(difficultyControls[i].dataset.difficulty);
-        }
+    document.addEventListener("keydown", keyPush);
+    for (let i = 0; i < document.getElementsByClassName('difficulty').length; i++){
+      console.log(difficultyControls[i])
+      difficultyControls[i].onclick = function() {
+        changeDifficulty(difficultyControls[i].dataset.difficulty);
       }
-      gameTimer = setInterval(game, 200);
-      if (!!localStorage.getItem('highscore')) {
-        bestScore = localStorage.getItem('highscore');
-      }
-   // });
+    }
+    gameTimer = setInterval(game, 200);
+    if (!!localStorage.getItem('highscore')) {
+      bestScore = localStorage.getItem('highscore');
+    }
     
     const game = () => {
       snakeCoordX += horizSpeed;
@@ -194,7 +189,7 @@ export default class Snake extends React.Component {
       placePoison([poison1X, poison1Y], [poison2X, poison2Y], [poison3X, poison3Y]);
     }
   }
-
+  // convert this to state / templ within this component. This hybrid approach makes no sense.
   render(){
      return (<div dangerouslySetInnerHTML={htmlDoc} />)
 }}
