@@ -1,11 +1,12 @@
 import React from 'react';
+import Page from './snake.html';
+var htmlDoc = {__html: Page};
 
-const Snake = (props) => {
-  return (
-    <div>
-      <h1> Snake </h1>
-    </div>
-    )
-}
+export default class Snake extends React.Component {
+  constructor(props){
+    super(props);
+  }
 
-export default Snake;
+  render(){
+     return (<div dangerouslySetInnerHTML={htmlDoc} />)
+}}
