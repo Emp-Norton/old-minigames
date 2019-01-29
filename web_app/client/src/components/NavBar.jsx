@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBar = (props) => {
-  console.log('nav')
 	return (
 		<div class="navbar">
       <h1> 8 Bit Bites! </h1>
