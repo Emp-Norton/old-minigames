@@ -1,5 +1,25 @@
+.navbar--button {
+  height: 30px;
+  width: 150px;
+  box-shadow: 6px 3px 3px #14252f;
+  border: 1px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.navbar--button-well {
+  display: flex;
+  float: right;
+}
+
 .navbar {
-	height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	height: 50px;
 	width: 100%;
 	background-color: grey;
+  box-shadow: 10px 5px 5px #14252f;
+  border-radius: 5px;
 }
+
