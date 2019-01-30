@@ -135,8 +135,8 @@
     const changeDifficulty = (level) => {
       difficultyModifier = level;
       console.log(difficultyModifier)
-      clearInterval(gameTimer);
-      gameTimer = setInterval(game, level * 100);
+      window.clearInterval(gameTimer);
+      gameTimer = window.setInterval(game, level * 100);
     }
 
     const generateCoordinates = (n) => {
@@ -168,15 +168,13 @@
     let tail = 5;
     
     $(document).ready(function() {
-      console.log(difficultyControls);
       document.addEventListener("keydown", keyPush);
       for (let i = 0; i < document.getElementsByClassName('difficulty').length; i++){
-        console.log(difficultyControls[i])
         difficultyControls[i].onclick = function() {
           changeDifficulty(difficultyControls[i].dataset.difficulty);
         }
       }
-      gameTimer = setInterval(game, 200);
+      gameTimer = window.setInterval(game, 200); // need to clear interval when not in snake route 
       if (!!localStorage.getItem('highscore')) {
         bestScore = localStorage.getItem('highscore');
       }
