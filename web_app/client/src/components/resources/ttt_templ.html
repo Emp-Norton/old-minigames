@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+	<title>Tic Tac Toe</title>	
+	<style>
+
+	.btn {
+		height: 50px;
+		width: 380px;
+		font-size: xx-large;
+	}
+	.row {
+		display: flex;
+	}
+	.col {
+		border: 2px solid black;
+		border-radius: 5px;
+		width: 250px;
+		height: 250px;
+		font-size: xx-large;
+		text-align: center;
+		transition: 0.7 ease all;
+		display: block;
+	}
+	.col:hover {
+		transform: scale(1.01);
+		box-shadow: 2px 2px 2px 2px red;
+	}
+	.contentWell {
+		margin: 25px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	</style>
+</head>
+<body>
+
+	<div class="contentWell">
+		<div class="game">
+			<div class="row" id="r0">
+				<div class="col" id="r0c0">
+				</div>
+				<div class="col" id="r0c1">
+				</div>
+				<div class="col" id="r0c2">
+				</div>
+			</div>
+			<div class="row" id="r1">
+				<div class="col" id="r1c0">
+				</div>
+				<div class="col" id="r1c1">
+				</div>
+				<div class="col" id="r1c2">
+				</div>
+			</div>
+			<div class="row" id="r2">
+				<div class="col" id="r2c0">
+				</div>
+				<div class="col" id="r2c1">
+				</div>
+				<div class="col" id="r2c2">
+				</div>
+			</div>
+		</div>
+		<div class="buttons">
+			<button class="btn reset"> Reset the game </button>
+			<button class="btn start"> Start the game </button>
+		</div>
+	</div>
+</body>
+<script src="app.js"></script>
+
+</html>
