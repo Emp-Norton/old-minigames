@@ -192,4 +192,5 @@ export default class Snake extends React.Component {
   // convert this to state / templ within this component. This hybrid approach makes no sense.
   render(){
      return (<div dangerouslySetInnerHTML={htmlDoc} />)
-}}
+  }
+}
