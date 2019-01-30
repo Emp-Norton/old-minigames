@@ -1,7 +1,7 @@
 import React from 'react';
 import Page from './resources/snake_templ.html';
 import $ from 'jquery';
-var htmlDoc = {__html: Page};
+const htmlDoc = {__html: Page};
 
 export default class Snake extends React.Component {
   constructor(props){
