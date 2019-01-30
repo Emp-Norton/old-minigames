@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from './snake.html';
+import Page from './resources/snake_templ.html';
 import $ from 'jquery';
 var htmlDoc = {__html: Page};
 
