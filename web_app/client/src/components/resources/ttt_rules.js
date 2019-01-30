@@ -1,4 +1,3 @@
-
 const app = { currentTurn: undefined, cells: []};
 
 app.init = function () {
@@ -61,4 +60,4 @@ app.checkWin = function (player = app.currentTurn) {
 	return result;
 }
 
-app.init();
+module.exports = app;
