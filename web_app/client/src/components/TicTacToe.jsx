@@ -19,7 +19,7 @@ export default class TicTacToe extends React.Component {
   render() {
     return (
       <div>
-        <div dangerouslySetInnerHTML = {htmlDoc} />
+        <div dangerouslySetInnerHTML = {htmlDoc} /> // how stupid is this? It -does- say 'dangerously'.
       </div>
     )
   }
