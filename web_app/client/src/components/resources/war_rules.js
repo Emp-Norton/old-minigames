@@ -148,5 +148,5 @@ const Game = function(){
 
 module.exports = {
   player: Player,
-  deck: Deck
+  makeDeck: Deck
 }
