@@ -14,9 +14,7 @@ export default class War extends React.Component {
   componentDidMount() {
     const p1 = rules.player('James');
     const p2 = rules.player('Jon');
-    const deck = rules.deck().shuffle();
-    console.log(deck);
-    deck.deal(p1, p2);
+    rules.makeDeck().shuffle().deal(p1, p2);
     this.setState({player1: p1, player2: p2});
   }
 
