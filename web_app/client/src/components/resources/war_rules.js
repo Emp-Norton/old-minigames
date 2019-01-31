@@ -8,6 +8,7 @@ const Player = (name) => { // function keyword or arrow funcs? this binding?
 }
 
 const Deck = function() {
+  const deckObj = {};
 /* 
 maybe this accepts an argument so when a player has an array of cards
 I can make it a deck object and give it the associated methods like shuffle. 
@@ -20,31 +21,36 @@ multi-deck games / whatever else )
     offensive pile is depleted.
   
 */
-  this.cards = [];
+  deckObj.cards = [];
   const suits = ['C','D','H','S'];
   for (let cardVal = 1; cardVal <= 13; cardVal++) {
     for (let cardSuit = 0; cardSuit < 4; cardSuit++) {
         const card = `${cardVal}${suits[cardSuit]}`;
-        this.cards.push(card);
+        deckObj.cards.push(card);
     }
   }
-}
 
-Deck.prototype.shuffle = function() {
-  const newArrangement = [];
-  while (newArrangement.length < 52) {
-    let index = Math.floor(Math.random() * Math.floor(52));
-    if (this.cards[index]) {
-      newArrangement.push(this.cards[index]);
-      this.cards[index] = null;
+
+
+  deckObj.shuffle = function() {
+    const newArrangement = [];
+    while (newArrangement.length < 52) { // this is not very efficient
+      let index = Math.floor(Math.random() * Math.floor(52));
+      if (deckObj.cards[index]) {
+        newArrangement.push(deckObj.cards[index]);
+        deckObj.cards[index] = null;
+      }
     }
+    deckObj.cards = newArrangement;
+    return deckObj
   }
-  this.cards = newArrangement;
-}
 
-Deck.prototype.deal = function(p1, p2) {
-  p1.deck = this.cards.slice(0, this.cards.length / 2);
-  p2.deck = this.cards.slice(this.cards.length / 2, this.cards.length);
+  deckObj.deal = function(p1, p2) {
+    p1.deck = deckObj.cards.slice(0, deckObj.cards.length / 2);
+    p2.deck = deckObj.cards.slice(deckObj.cards.length / 2, deckObj.cards.length);
+  }
+
+  return deckObj
 }
 
 const Game = function(){
