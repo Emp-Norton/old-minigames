@@ -1,11 +1,20 @@
 import React from 'react';
+import Deck from './Deck.jsx';
 
-const War = (props) => {
-  return (
-    <div>
-      <h1> WAR </h1>
-    </div>
+export default class War extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render(){
+    return (
+      <div>
+        <h1> WAR </h1>
+        <div id="battlefield">
+          <Deck cards={[]} />
+        </div>
+      </div>
     )
+  }
 }
 
-export default War;
