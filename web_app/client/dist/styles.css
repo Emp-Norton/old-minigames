@@ -1,3 +1,21 @@
+
+.battlefield {
+
+}
+
+.battlefield--card {
+  border: 2px black solid;
+  border-radius: 5px;
+  height: 50px;
+  width: 70px;
+  display: flex;
+}
+
+.battlefield--deck {
+  display: flex;
+  flex-direction: row;
+}
+
 .navbar--button {
   height: 30px;
   width: 150px;
