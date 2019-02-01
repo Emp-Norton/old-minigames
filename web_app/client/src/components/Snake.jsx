@@ -123,7 +123,6 @@ export default class Snake extends React.Component {
 
     const changeDifficulty = (level) => {
       difficultyModifier = level;
-      console.log(difficultyModifier)
       clearInterval(gameTimer);
       gameTimer = setInterval(game, level * 100);
     }
@@ -137,7 +136,6 @@ export default class Snake extends React.Component {
     }
 
     const fixRepeatingCoords = (coordSet, toFix) => {
-      console.log('Trying to fix' + coordSet, toFix);
       let randCoord;
       let toFixString = JSON.stringify(toFix);
       let coordSetString = pairify(coordSet).map(c => JSON.stringify(c));
@@ -150,21 +148,16 @@ export default class Snake extends React.Component {
     }
 
     const generateCoordinates = (n) => {
-      // want to generate coords without any repetition
-        // however, want to allow near-repeats ([6, 10], [6, 9] || [1, 4], [3, 4]) because that
-        // creates difficult to navigate layouts (apples near poisons) which is more fun
       const coords = [];
       for (let i = 0; i < n; i++) {
         const c = Math.floor((Math.random() * tileCount));
         coords.push(c);
       }
-     // console.log(coords);
       return coords
     }
 
     document.addEventListener("keydown", keyPush);
     for (let i = 0; i < document.getElementsByClassName('difficulty').length; i++){
-      console.log(difficultyControls[i])
       difficultyControls[i].onclick = function() {
         changeDifficulty(difficultyControls[i].dataset.difficulty);
       }
@@ -213,11 +206,10 @@ export default class Snake extends React.Component {
           localStorage.setItem('highscore', bestScore);
         }
         updateScore(10 * (1 / difficultyModifier));
-        // need to check that the array of poison coord tuples doesn't contain the apple coord tuple
-          // modify coord generation function to accept exclusionary ranges
-          // generate apple, pass those coords as excl. range when generating poison.
         [appleX, appleY] = generateCoordinates(2);
         [poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y] = generateCoordinates(6);
+        // this feels clunky, too much text and do I need to be calling fixRepeatingCoords every time?
+          // separate these concerns: function for checking if repetition occuring, function for fixing it.
         [appleX, appleY] = fixRepeatingCoords([poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y], [appleX, appleY]);
       } else {
         checkPoison();
