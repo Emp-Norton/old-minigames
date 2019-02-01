@@ -128,7 +128,28 @@ export default class Snake extends React.Component {
       gameTimer = setInterval(game, level * 100);
     }
 
-    const generateCoordinates = (n, exclude) => {
+    const pairify = (coords) => {
+      const results = [];
+      for (let i = 0; i < coords.length; i+=2) {
+        results.push(coords.slice(i, i+2));
+      }
+      return results;
+    }
+
+    const fixRepeatingCoords = (coordSet, toFix) => {
+      console.log('Trying to fix' + coordSet, toFix);
+      let randCoord;
+      let toFixString = JSON.stringify(toFix);
+      let coordSetString = pairify(coordSet).map(c => JSON.stringify(c));
+      while (coordSetString.includes(toFixString)) {
+        randCoord = Math.floor(Math.random() * 2);
+        toFix[randCoord] += 1
+        toFixString = JSON.stringify(toFix);
+      }
+      return toFix;
+    }
+
+    const generateCoordinates = (n) => {
       // want to generate coords without any repetition
         // however, want to allow near-repeats ([6, 10], [6, 9] || [1, 4], [3, 4]) because that
         // creates difficult to navigate layouts (apples near poisons) which is more fun
@@ -137,7 +158,7 @@ export default class Snake extends React.Component {
         const c = Math.floor((Math.random() * tileCount));
         coords.push(c);
       }
-      console.log(coords);
+     // console.log(coords);
       return coords
     }
 
@@ -197,11 +218,12 @@ export default class Snake extends React.Component {
           // generate apple, pass those coords as excl. range when generating poison.
         [appleX, appleY] = generateCoordinates(2);
         [poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y] = generateCoordinates(6);
+        [appleX, appleY] = fixRepeatingCoords([poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y], [appleX, appleY]);
       } else {
         checkPoison();
       }
 
-      placeApple(appleX, appleY);
+      placeApple(appleX, appleY);   
       placePoison([poison1X, poison1Y], [poison2X, poison2Y], [poison3X, poison3Y]);
     }
   }
