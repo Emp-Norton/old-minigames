@@ -81,6 +81,15 @@ export default class Snake extends React.Component {
       }
     }
 
+    // const checkUniqCoords = (coords, target) => {
+    //   const targetCoordString = JSON.stringify(target);
+    //   for (let i = 0; i < target.length; i++) {
+    //     const currentCoordString = JSON.stringify(coords[i]);
+    //     if (currentCoordString == targetCoordString) return false;
+    //   }
+    //   return true;
+    // }
+
     const checkPoison = () => {
       let isPoisonApple = false;
       if (snakeCoordX == poison1X && snakeCoordY == poison1Y ||
@@ -125,6 +134,7 @@ export default class Snake extends React.Component {
         let c = Math.floor((Math.random() * tileCount));
         coords.push(c);
       }
+      console.log(coords);
       return coords
     }
 
@@ -179,6 +189,9 @@ export default class Snake extends React.Component {
           localStorage.setItem('highscore', bestScore);
         }
         updateScore(10 * (1 / difficultyModifier));
+        // need to check that the array of poison coord tuples doesn't contain the apple coord tuple
+          // modify coord generation function to accept exclusionary ranges
+          // generate apple, pass those coords as excl. range when generating poison.
         [appleX, appleY] = generateCoordinates(2);
         [poison1X, poison1Y, poison2X, poison2Y, poison3X, poison3Y] = generateCoordinates(6);
       } else {
