@@ -128,10 +128,13 @@ export default class Snake extends React.Component {
       gameTimer = setInterval(game, level * 100);
     }
 
-    const generateCoordinates = (n) => {
+    const generateCoordinates = (n, exclude) => {
+      // want to generate coords without any repetition
+        // however, want to allow near-repeats ([6, 10], [6, 9] || [1, 4], [3, 4]) because that
+        // creates difficult to navigate layouts (apples near poisons) which is more fun
       const coords = [];
       for (let i = 0; i < n; i++) {
-        let c = Math.floor((Math.random() * tileCount));
+        const c = Math.floor((Math.random() * tileCount));
         coords.push(c);
       }
       console.log(coords);
