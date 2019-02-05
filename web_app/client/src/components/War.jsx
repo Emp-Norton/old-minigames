@@ -35,7 +35,7 @@ export default class War extends React.Component {
   }
 
   showDeckModal(player) {
-    console.log(player)
+    console.log('show deck ' + player)
     const {state} = this;
     return (
       <div>
@@ -43,12 +43,12 @@ export default class War extends React.Component {
         player.name === state.player1.name
         ? <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal.bind(this)}>
             <div class="battlefield">  
-              <Deck name={state.player1.name} cards={state.player1.deck} />
+               <Deck player={state.player1} cards={state.player1.deck} />
             </div>
           </Modal>
         : <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal.bind(this)}>
             <div class="battlefield">
-              <Deck name={state.player2.name} cards={state.player1.deck} />
+              <Deck player={state.player2} cards={state.player2.deck} />
             </div>
         </Modal>
     }
@@ -69,7 +69,7 @@ export default class War extends React.Component {
   }
 
   onOpenModal(player) {
-    console.log(player);
+    console.log('opening modal for ' + player.name);
     this.setState({
       modalOpen: true,
       showModalPlayer: player
@@ -77,6 +77,7 @@ export default class War extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mounting');
     this.startGame();
   }
 
@@ -87,15 +88,20 @@ export default class War extends React.Component {
       <div>
         <h1> WAR </h1>
         {
-          this.state.isLoaded 
+          state.isLoaded 
           ? this.showDecks()
           : this.showPregame()
         }
-        <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal}>
-          <div class="battlefield">  
-            <Deck name={state.showModalPlayer.name} cards={state.showModalPlayer.deck} />
-          </div>
-        </Modal>
+        {
+          !!state.showModalPlayer
+          ? <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal}>
+              <div class="battlefield">  
+                <Deck player={state.showModalPlayer} cards={state.showModalPlayer.deck} />
+              </div>
+            </Modal>
+          : null
+        }
+        
           
       </div>
     )
