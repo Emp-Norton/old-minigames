@@ -20,6 +20,12 @@
   flex-wrap: wrap;
 }
 
+.modalMessage {
+  height: 50px;
+  width: 50px;
+  color: red;
+}
+
 .navbar--button {
   height: 30px;
   width: 150px;
