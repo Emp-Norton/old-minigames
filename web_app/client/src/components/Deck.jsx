@@ -17,10 +17,10 @@ export default class Deck extends React.Component {
   render() {
     return (
       <div>
-        <h1> {this.props.name}`s Deck </h1>
+        <h1> {this.props.player.name}`s Deck </h1>
         <div class="battlefield--deck">
           {this.state.cards.map(card => {
-            return <Card clickHandler={this.props.cardClick} value={card} />
+            return <Card player={this.props.player} clickHandler={this.props.cardClick} value={card} />
           })}
         </div>
       </div>
