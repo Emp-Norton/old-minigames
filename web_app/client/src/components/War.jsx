@@ -35,7 +35,6 @@ export default class War extends React.Component {
   }
 
   showDeckModal(player) {
-    console.log('show deck ' + player)
     const {state} = this;
     return (
       <div>
@@ -69,7 +68,6 @@ export default class War extends React.Component {
   }
 
   onOpenModal(player) {
-    console.log('opening modal for ' + player.name);
     this.setState({
       modalOpen: true,
       showModalPlayer: player
@@ -77,7 +75,6 @@ export default class War extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mounting');
     this.startGame();
   }
 

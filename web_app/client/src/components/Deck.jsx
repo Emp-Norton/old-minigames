@@ -15,7 +15,6 @@ export default class Deck extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h1> {this.props.player.name}`s Deck </h1>
