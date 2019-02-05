@@ -10,7 +10,8 @@ export default class War extends React.Component {
       player1: {deck: []},
       player2: {deck: []},
       isLoaded: false,
-      modalOpen: false
+      modalOpen: false,
+      showModalPlayer: null
     }
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
@@ -27,13 +28,14 @@ export default class War extends React.Component {
     const {state} = this;
     return (
       <div id="battlefield">
-        <Deck cardClick={this.onOpenModal} name={state.player1.name} cards={state.player1.deck} onClick={this.showDeckModal(state.player1)} />
-        <Deck cardClick={this.onOpenModal} cards={state.player2.deck} onClick={this.showDeckModal(state.player2)} />
+        <Deck cardClick={(e) => this.onOpenModal(e)} name={state.player1.name} cards={state.player1.deck} />
+        <Deck cardClick={(e) => this.onOpenModal(e)} cards={state.player2.deck} />
       </div>
     )
   }
 
   showDeckModal(player) {
+    console.log(player)
     const {state} = this;
     return (
       <div>
@@ -66,9 +68,11 @@ export default class War extends React.Component {
     });
   }
 
-  onOpenModal() {
+  onOpenModal(player) {
+    console.log(player);
     this.setState({
-      modalOpen: true
+      modalOpen: true,
+      showModalPlayer: player
     });
   }
 
@@ -88,10 +92,10 @@ export default class War extends React.Component {
           : this.showPregame()
         }
         <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal}>
-            <div class="battlefield">  
-              <Deck name={state.player1.name} cards={state.player1.deck} />
-            </div>
-          </Modal>
+          <div class="battlefield">  
+            <Deck name={state.showModalPlayer.name} cards={state.showModalPlayer.deck} />
+          </div>
+        </Modal>
           
       </div>
     )
