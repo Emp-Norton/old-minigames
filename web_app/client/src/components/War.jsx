@@ -12,6 +12,8 @@ export default class War extends React.Component {
       isLoaded: false,
       modalOpen: false
     }
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   startGame() {
@@ -25,10 +27,31 @@ export default class War extends React.Component {
     const {state} = this;
     return (
       <div id="battlefield">
-        <Deck name={state.player1.name} cards={state.player1.deck} />
-        <Deck name={state.player2.name} cards={state.player2.deck} />
+        <Deck cardClick={this.onOpenModal} name={state.player1.name} cards={state.player1.deck} onClick={this.showDeckModal(state.player1)} />
+        <Deck cardClick={this.onOpenModal} cards={state.player2.deck} onClick={this.showDeckModal(state.player2)} />
       </div>
     )
+  }
+
+  showDeckModal(player) {
+    const {state} = this;
+    return (
+      <div>
+      {
+        player.name === state.player1.name
+        ? <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal.bind(this)}>
+            <div class="battlefield">  
+              <Deck name={state.player1.name} cards={state.player1.deck} />
+            </div>
+          </Modal>
+        : <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal.bind(this)}>
+            <div class="battlefield">
+              <Deck name={state.player2.name} cards={state.player1.deck} />
+            </div>
+        </Modal>
+    }
+    </div>
+    )    
   }
 
   showPregame() {
@@ -64,9 +87,11 @@ export default class War extends React.Component {
           ? this.showDecks()
           : this.showPregame()
         }
-        <Modal open={modalOpen} center="true" onClose={this.onCloseModal.bind(this)}>
-          <div class="modalMessage"> { this.state.modalMessage } </div>
-        </Modal>
+        <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal}>
+            <div class="battlefield">  
+              <Deck name={state.player1.name} cards={state.player1.deck} />
+            </div>
+          </Modal>
           
       </div>
     )
