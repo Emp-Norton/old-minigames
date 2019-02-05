@@ -1,6 +1,7 @@
 import React from 'react';
 import Deck from './Deck.jsx';
 import rules from './resources/war_rules.js';
+import Modal from 'react-responsive-modal';
 
 export default class War extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ export default class War extends React.Component {
     this.state = {
       player1: {deck: []},
       player2: {deck: []},
-      isLoaded: false
+      isLoaded: false,
+      modalOpen: false
     }
   }
 
@@ -35,7 +37,17 @@ export default class War extends React.Component {
     )
   }
 
+  onCloseModal() {
+    this.setState({
+      modalOpen: false
+    });
+  }
 
+  onOpenModal() {
+    this.setState({
+      modalOpen: true
+    });
+  }
 
   componentDidMount() {
     this.startGame();
@@ -43,6 +55,7 @@ export default class War extends React.Component {
 
   render(){
     const { state } = this;
+    const { modalOpen } = this.state;
     return (
       <div>
         <h1> WAR </h1>
@@ -51,6 +64,9 @@ export default class War extends React.Component {
           ? this.showDecks()
           : this.showPregame()
         }
+        <Modal open={modalOpen} center="true" onClose={this.onCloseModal.bind(this)}>
+          <div class="modalMessage"> { this.state.modalMessage } </div>
+        </Modal>
           
       </div>
     )
