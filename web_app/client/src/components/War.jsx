@@ -1,5 +1,6 @@
 import React from 'react';
 import Deck from './Deck.jsx';
+import DeckPlaceholder from './DeckPlaceholder.jsx';
 import rules from './resources/war_rules.js';
 import Modal from 'react-responsive-modal';
 
@@ -28,8 +29,8 @@ export default class War extends React.Component {
     const {state} = this;
     return (
       <div id="battlefield">
-        <Deck cardClick={(e) => this.onOpenModal(e)} player={state.player1} cards={state.player1.deck} />
-        <Deck cardClick={(e) => this.onOpenModal(e)} player={state.player2} cards={state.player2.deck} />
+        <DeckPlaceholder cardClick={(e) => this.onOpenModal(e)} cards={state.player1.deck} />
+        <DeckPlaceholder cardClick={(e) => this.onOpenModal(e)} cards={state.player2.deck} />
       </div>
     )
   }
