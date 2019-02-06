@@ -20,6 +20,17 @@
   flex-wrap: wrap;
 }
 
+.deck--placeholder {
+  border: 2px black solid;
+  border-radius: 5px;
+  height: 120px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5px;
+}
+
 .modalMessage {
   height: 50px;
   width: 50px;
