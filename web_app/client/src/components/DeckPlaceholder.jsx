@@ -5,8 +5,7 @@ export default class Deck extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
-      discarded: []
+      cards: []
     }
   }
 
