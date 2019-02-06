@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card.jsx';
 
-export default class Deck extends React.Component {
+export default class DeckPlaceholder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,8 +15,8 @@ export default class Deck extends React.Component {
 
   render() {
     return (
-      <div class="deck--placeholder">
-        <h1> #{ props.card.length } </h1>
+      <div class="deck--placeholder" onClick={this.props.openModal}>
+        <h1> #{ this.state.cards.length } </h1>
       </div>
     )
   }
