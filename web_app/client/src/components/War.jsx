@@ -29,8 +29,8 @@ export default class War extends React.Component {
     const {state} = this;
     return (
       <div id="battlefield">
-        <DeckPlaceholder cardClick={(e) => this.onOpenModal(e)} cards={state.player1.deck} />
-        <DeckPlaceholder cardClick={(e) => this.onOpenModal(e)} cards={state.player2.deck} />
+        <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player1)} cards={state.player1.deck} />
+        <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player2)} cards={state.player2.deck} />
       </div>
     )
   }
