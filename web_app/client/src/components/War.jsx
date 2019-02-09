@@ -31,7 +31,7 @@ export default class War extends React.Component {
       <div id="battlefield">
         <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player1)} cards={state.player1.deck} />
         <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player2)} cards={state.player2.deck} />
-        <button class="btn--play-round" label="Play Next Round"/>
+        <button class="btn--play-round"> <span class="btn--text"> Play Round </span></button>
       </div>
     )
   }
