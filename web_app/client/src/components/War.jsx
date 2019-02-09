@@ -17,7 +17,7 @@ export default class War extends React.Component {
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
   }
-
+// GAME FUNCTIONS // 
   startGame() {
     const p1 = rules.player('James');
     const p2 = rules.player('Jon');
@@ -25,6 +25,10 @@ export default class War extends React.Component {
     this.setState({player1: p1, player2: p2, isLoaded: true});
   }
 
+  playRound() {
+
+  }
+// PRESENTATION FUNCTIONS //
   showDecks(){
     const {state} = this;
     return (
@@ -75,7 +79,7 @@ export default class War extends React.Component {
       showModalPlayer: player
     });
   }
-
+// LIFECYCLE FUNCTIONS // 
   componentDidMount() {
     this.startGame();
   }
