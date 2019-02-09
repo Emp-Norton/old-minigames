@@ -13,7 +13,8 @@ export default class War extends React.Component {
       player2: {deck: []},
       isLoaded: false,
       modalOpen: false,
-      showModalPlayer: null
+      showModalPlayer: null,
+      gameIsActive: false
     }
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
@@ -24,15 +25,23 @@ export default class War extends React.Component {
     const p1 = rules.player('James');
     const p2 = rules.player('Jon');
     rules.makeDeck().shuffle().deal(p1, p2);
-    this.setState({player1: p1, player2: p2, isLoaded: true});
+    this.setState({player1: p1, player2: p2, isLoaded: true, gameIsActive: true});
   }
 
   playRound() {
     const player1_card = this.state.player1.deck.shift();
     const player2_card = this.state.player2.deck.shift();
-    console.log(player1_card, player2_card);
+    this.setState({player1_card: player1_card, player2_card: player2_card})
   }
 // PRESENTATION FUNCTIONS //
+  showCards() {
+    return (
+      <div>
+        <Card player={this.state.player1} value={this.state.player1_card} />
+        <Card player={this.state.player2} value={this.state.player2_card} />
+      </div>
+    )
+  }
   showDecks(){
     const {state} = this;
     return (
@@ -43,7 +52,11 @@ export default class War extends React.Component {
           <button onClick={this.playRound} class="btn--play-round"> <span class="btn--text"> Play Round </span></button>
         </div>
         <div class="battlefield">
-          
+          {
+            state.gameIsActive
+            ? this.showCards()
+            : null
+          }
         </div>
 
       </div>  
