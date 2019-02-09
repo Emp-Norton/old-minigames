@@ -20,6 +20,12 @@
   flex-wrap: wrap;
 }
 
+.btn--play-round {
+  height: 30px;
+  width: 60px;
+  
+}
+
 .deck--placeholder {
   border: 2px black solid;
   border-radius: 5px;
