@@ -20,7 +20,7 @@ export default class Deck extends React.Component {
         <h1> {this.props.player.name}`s Deck </h1>
         <div class="battlefield--deck">
           {this.state.cards.map(card => {
-            return <Card player={this.props.player} clickHandler={this.props.cardClick} value={card} />
+            return <Card player={this.props.player} value={card} />
           })}
         </div>
       </div>
