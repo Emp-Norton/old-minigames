@@ -33,6 +33,10 @@
   color: blue;
 }
 
+.deck--holster {
+  flex-direction: column;
+}
+
 .deck--placeholder {
   border: 2px black solid;
   border-radius: 5px;
