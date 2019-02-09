@@ -1,6 +1,7 @@
 
 .battlefield {
-
+  display: flex;
+  flex-direction: row;
 }
 
 .battlefield--card {
