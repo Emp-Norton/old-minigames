@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from './Card.jsx';
 import Deck from './Deck.jsx';
 import DeckPlaceholder from './DeckPlaceholder.jsx';
 import rules from './resources/war_rules.js';
@@ -16,6 +17,7 @@ export default class War extends React.Component {
     }
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
+    this.playRound = this.playRound.bind(this);
   }
 // GAME FUNCTIONS // 
   startGame() {
@@ -26,17 +28,25 @@ export default class War extends React.Component {
   }
 
   playRound() {
-
+    const player1_card = this.state.player1.deck.shift();
+    const player2_card = this.state.player2.deck.shift();
+    console.log(player1_card, player2_card);
   }
 // PRESENTATION FUNCTIONS //
   showDecks(){
     const {state} = this;
     return (
-      <div id="battlefield">
-        <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player1)} cards={state.player1.deck} />
-        <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player2)} cards={state.player2.deck} />
-        <button class="btn--play-round"> <span class="btn--text"> Play Round </span></button>
-      </div>
+      <div class="battlefield">
+        <div class="deck--holster">
+          <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player1)} cards={state.player1.deck} />
+          <DeckPlaceholder openModal={(e) => this.onOpenModal(state.player2)} cards={state.player2.deck} />
+          <button onClick={this.playRound} class="btn--play-round"> <span class="btn--text"> Play Round </span></button>
+        </div>
+        <div class="battlefield">
+          
+        </div>
+
+      </div>  
     )
   }
 
@@ -96,7 +106,7 @@ export default class War extends React.Component {
           : this.showPregame()
         }
         {
-          !!state.showModalPlayer
+          state.showModalPlayer
           ? <Modal open={state.modalOpen} center="true" onClose={this.onCloseModal}>
               <div class="battlefield">  
                 <Deck player={state.showModalPlayer} cards={state.showModalPlayer.deck} />
@@ -104,8 +114,6 @@ export default class War extends React.Component {
             </Modal>
           : null
         }
-        
-          
       </div>
     )
   }
