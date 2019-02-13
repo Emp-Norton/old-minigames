@@ -10,13 +10,15 @@ export default class DeckPlaceholder extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({cards: this.props.cards})
+    this.setState({cards: this.props.cards});
   }
 
   render() {
+    const { cards } = this.props;
     return (
       <div class="deck--placeholder" onClick={this.props.openModal}>
-        <h1> #{ this.state.cards.length } </h1>
+        <h1> #{ cards ? cards.length : 0 } 
+        </h1>
       </div>
     )
   }
