@@ -9,8 +9,8 @@ export default class War extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player1: {deck: []},
-      player2: {deck: []},
+      player1: {deck: [], pile: []},
+      player2: {deck: [], pile: []},
       isLoaded: false,
       modalOpen: false,
       showModalPlayer: null,
@@ -27,6 +27,8 @@ export default class War extends React.Component {
     rules.makeDeck().shuffle().deal(p1, p2);
     this.setState({player1: p1, player2: p2, isLoaded: true, gameIsActive: true});
   }
+
+
 
   playRound() {
     const player1_card = this.state.player1.deck.shift();
@@ -57,6 +59,10 @@ export default class War extends React.Component {
             ? this.showCards()
             : null
           }
+          <div>
+            <DeckPlaceholder openModal={(e) => this.onOpenModal(this.state.player1)} cards={this.state.player1.pile} />
+            <DeckPlaceholder openModal={(e) => this.onOpenModal(this.state.player2)} cards={this.state.player2.pile} />
+          </div>
         </div>
 
       </div>  
