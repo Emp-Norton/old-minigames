@@ -17,54 +17,79 @@ const ShuffleBoard: React.FC = () => {
   const boardRef = useRef<HTMLDivElement>(null);
 
   const updateDiscPositions = (prevDiscs: Disc[]): Disc[] => {
-    return prevDiscs.map(disc => {
+    const newDiscs = [...prevDiscs];
+
+    prevDiscs.forEach((disc, index) => {
       const isMoving = Math.abs(disc.velocity.x) > 0.01 || Math.abs(disc.velocity.y) > 0.01;
-      if (!isMoving) {
-        return {
-          ...disc,
-          velocity: ZERO_VELOCITY_CONSTANT,
-        };
-      }
+      if (!isMoving) return;
 
       const nextPosition = getNextPosition(disc.position, disc.velocity);
 
-      const collision = prevDiscs.find(otherDisc => {
-        if (otherDisc.id === disc.id || otherDisc.velocity) return false;
+      const collisionIndex = prevDiscs.findIndex((otherDisc, otherIndex) => {
+        if (index === otherIndex) return false;
 
         return areDiscsColliding(nextPosition, otherDisc.position, DISC_DIAMETER);
       });
 
-      if (collision) {
-        return {
+      if (collisionIndex !== -1) {
+        // TODO: Play "knock" sound
+        const hitDisc = prevDiscs[collisionIndex];
+
+        const angle = Math.atan2(
+            hitDisc.position.y - disc.position.y,
+            hitDisc.position.x - disc.position.x
+        );
+
+        const speed = Math.sqrt(
+            Math.pow(disc.velocity.x, 2) +
+            Math.pow(disc.velocity.y, 2)
+        );
+
+        newDiscs[index] = {
           ...disc,
           position: {
-            x: collision.position.x - (Math.sign(disc.velocity.x) * DISC_DIAMETER),
-            y: collision.position.y - (Math.sign(disc.velocity.y) * DISC_DIAMETER),
+            x: hitDisc.position.x - (Math.cos(angle) * DISC_DIAMETER),
+            y: hitDisc.position.y - (Math.sin(angle) * DISC_DIAMETER)
           },
-          velocity: {x: 0, y: 0},
+          velocity: { x: 0, y: 0 }
+        };
+
+        newDiscs[collisionIndex] = {
+          ...hitDisc,
+          velocity: {
+            x: Math.cos(angle) * speed * 0.8,
+            y: Math.sin(angle) * speed * 0.8
+          }
+        };
+      } else {
+        const friction = 0.98;
+        const newVelocity = {
+          x: disc.velocity.x * friction,
+          y: disc.velocity.y * friction
+        };
+
+        newDiscs[index] = {
+          ...disc,
+          position: nextPosition,
+          velocity: Math.abs(newVelocity.x) < 0.01 && Math.abs(newVelocity.y) < 0.01
+              ? { x: 0, y: 0 }
+              : newVelocity
         };
       }
-
-      // Apply friction
-      const friction = 0.98;
-      const newVelocity = {
-        x: disc.velocity.x * friction,
-        y: disc.velocity.y * friction,
-      };
-
-      // Stop moving if velocity is very small
-      if (Math.abs(newVelocity.x) < 0.01 && Math.abs(newVelocity.y) < 0.01) {
-        return { ...disc, velocity: ZERO_VELOCITY_CONSTANT };
-      }
-
-      // No collision, update position with velocity
-      return {
-        ...disc,
-        position: nextPosition,
-        velocity: newVelocity,
-      };
     });
+
+    return newDiscs;
   };
+
+  useEffect(() => {
+    if (discs.length === 0) return;
+
+    const interval = setInterval(() => {
+      setDiscs(prevDiscs => updateDiscPositions(prevDiscs));
+    }, PHYSICS_TIMESTEP);
+
+    return () => clearInterval(interval);
+  }, [discs.length]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!boardRef.current) return;
@@ -73,7 +98,7 @@ const ShuffleBoard: React.FC = () => {
     const x = e.clientX - boardRect.left;
     const y = e.clientY - boardRect.top;
 
-    if (x > STARTING_POSITION_CUTOFF) return; // Only allow starting from the first 100px
+    if (x > STARTING_POSITION_CUTOFF) return;
 
     setIsDragging(true);
     setDragStart({ x, y });
@@ -102,7 +127,6 @@ const ShuffleBoard: React.FC = () => {
       y: (endY - dragStart.y) / 50,
     };
 
-    // Add new disc with initial velocity
     const newDisc: Disc = {
       id: discs.length,
       position: { ...dragStart },
@@ -115,15 +139,6 @@ const ShuffleBoard: React.FC = () => {
     setIsDragging(false);
   };
 
-  useEffect(() => {
-    if (discs.length === 0) return;
-
-    const interval = setInterval(() => {
-      setDiscs(prevDiscs => updateDiscPositions(prevDiscs));
-    }, PHYSICS_TIMESTEP);
-
-    return () => clearInterval(interval);
-  }, [discs.length]);
 
   return (
     <div
