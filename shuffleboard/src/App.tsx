@@ -1,5 +1,5 @@
 import React from 'react';
-import ShuffleBoard from './ShuffleBoard';
+import ShuffleBoard from './shuffleboard.tsx';
 import './App.css';
 
 function App() {
