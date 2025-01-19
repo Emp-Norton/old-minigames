@@ -150,8 +150,11 @@ const ShuffleBoard: React.FC = () => {
       onMouseLeave={() => setIsDragging(false)}
     >
 
-      <div className="starting-area" />
-
+      <div className="starting-area"> THROW </div>
+      <div className="foul-line"> FOUL </div>
+      <div className="scoring-area score-1">
+        <div className="score-indicator"> 1 </div>
+      </div>
 
       {discs.map((disc) => (
         <div
