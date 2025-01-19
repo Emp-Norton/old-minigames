@@ -7,4 +7,19 @@
   border: 10px solid #654321;
 }
 
+.disc {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
 
+.player1 {
+  background-color: red;
+}
+
+.player2 {
+  background-color: blue;
+}
