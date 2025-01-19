@@ -1,0 +1,10 @@
+.shuffleboard {
+  width: 800px;
+  height: 200px;
+  background-color: #8b4513;
+  position: relative;
+  margin: 20px auto;
+  border: 10px solid #654321;
+}
+
+
