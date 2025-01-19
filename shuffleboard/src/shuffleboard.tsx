@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Position, Disc } from './types';
-import { distance, areDiscsColliding, getNextPosition } from './utils';
+import { distance, areDiscsColliding, getNextPosition } from './utils.ts';
 import './shuffleboard.css';
 
 const DISC_DIAMETER = 30; // Should match CSS
@@ -97,7 +97,6 @@ const ShuffleBoard: React.FC = () => {
     const endX = e.clientX - boardRect.left;
     const endY = e.clientY - boardRect.top;
 
-    // Calculate velocity based on drag distance
     const velocity = {
       x: (endX - dragStart.x) / 50,
       y: (endY - dragStart.y) / 50,
@@ -108,7 +107,7 @@ const ShuffleBoard: React.FC = () => {
       id: discs.length,
       position: { ...dragStart },
       player: currentPlayer,
-      velocity: ZERO_VELOCITY_CONSTANT,
+      velocity: velocity,
     };
 
     setDiscs([...discs, newDisc]);
