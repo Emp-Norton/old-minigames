@@ -5,6 +5,17 @@
   position: relative;
   margin: 20px auto;
   border: 10px solid #654321;
+  overflow: hidden;
+}
+
+.starting-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-right: 2px dashed rgba(255, 255, 255, 0.3);
 }
 
 .disc {
@@ -22,4 +33,11 @@
 
 .player2 {
   background-color: blue;
+}
+
+.drag-line {
+  position: absolute;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform-origin: left center;
 }
