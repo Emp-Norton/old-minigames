@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Position, Disc } from './types.ts';
+import { Position, Disc } from './types';
 import './shuffleboard.css';
 
 const ShuffleBoard: React.FC = () => {
@@ -9,6 +9,13 @@ const ShuffleBoard: React.FC = () => {
   const [dragStart, setDragStart] = useState<Position>({ x: 0, y: 0 });
   const [currentPos, setCurrentPos] = useState<Position>({ x: 0, y: 0 });
   const boardRef = useRef<HTMLDivElement>(null);
+
+  const checkPositionUnoccupied = (pos: Position) :boolean  => {
+    let positions = discs.map((disc: Disc):Position => {
+      return disc.position
+    });
+    return positions.some((obj) => obj.x === pos.x && obj.y === pos.y);
+  }
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!boardRef.current) return;
@@ -44,8 +51,8 @@ const ShuffleBoard: React.FC = () => {
 
     // Calculate velocity based on drag distance
     const velocity = {
-      x: (endX - dragStart.x) / 50,
-      y: (endY - dragStart.y) / 50,
+      x: (endX ** 2 - dragStart.x ** 2) / 50,
+      y: (endY ** 2 - dragStart.y ** 2) / 50,
     };
 
     // Add new disc with initial velocity
@@ -80,13 +87,16 @@ const ShuffleBoard: React.FC = () => {
           if (Math.abs(newVelocity.x) < 0.01 && Math.abs(newVelocity.y) < 0.01) {
             return { ...disc, velocity: undefined };
           }
+          let newPosition = {
+            x: disc.position.x + newVelocity.x,
+            y: disc.position.y + newVelocity.y,
+          }
+
+          console.log(checkPositionUnoccupied(newPosition));
 
           return {
             ...disc,
-            position: {
-              x: disc.position.x + newVelocity.x,
-              y: disc.position.y + newVelocity.y,
-            },
+            newPosition,
             velocity: newVelocity,
           };
         })
@@ -105,10 +115,10 @@ const ShuffleBoard: React.FC = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={() => setIsDragging(false)}
     >
-      {/* Starting area indicator */}
+
       <div className="starting-area" />
       
-      {/* Existing discs */}
+
       {discs.map((disc) => (
         <div
           key={disc.id}
@@ -120,7 +130,7 @@ const ShuffleBoard: React.FC = () => {
         />
       ))}
       
-      {/* Dragging preview */}
+
       {isDragging && (
         <>
           <div
